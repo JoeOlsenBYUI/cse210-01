@@ -32,6 +32,7 @@ namespace cse210_01
                     {
                         Console.Write("\n");
                     }
+
                     if (board[i] == ".")
                     {
                         Console.Write(space[count]);
@@ -41,14 +42,17 @@ namespace cse210_01
                     {
                         Console.Write(board[i]);
                     }
-
                 }
-
             }
+        }
 
+        public void pickSpace(string xO)
+        {
+            Console.Write("Pick a space: ");
+            int chosenSpace = Convert.ToInt32(Console.ReadLine());
+            board[chosenSpace - 1] = xO;
         }
     }
-
 
     public class Program
     {
