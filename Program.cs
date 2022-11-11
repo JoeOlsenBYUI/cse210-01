@@ -6,11 +6,13 @@ namespace cse210_01
     public class ticTacToe
     {
         // ATTRIBUTES
+        int turnsLeft = 9;
+        bool xTurn = true;
+        string xO = "x";
         List<string> space = new List<string>()
         {
             "1","2","3","4","5","6","7","8","9"
         };
-
         List<string> board = new List<string>()
         {
             ".","|",".","|",".",
@@ -44,13 +46,56 @@ namespace cse210_01
                     }
                 }
             }
+            Console.WriteLine("\n");
+
+
         }
 
-        public void pickSpace(string xO)
+        public void pickSpace(string xOxO)
         {
-            Console.Write("Pick a space: ");
+            Console.WriteLine($"It's {xOxO}'s turn.");
+            Console.Write("Pick a space [1-9]: ");
             int chosenSpace = Convert.ToInt32(Console.ReadLine());
-            board[chosenSpace - 1] = xO;
+            while (true)
+            {
+                if (space[chosenSpace - 1] != "x" && space[chosenSpace - 1] != "o")
+                {
+                    space[chosenSpace - 1] = xOxO;
+                    break;
+                }
+                else
+                {
+                    Console.Write("\nThat space is taken, choose again: ");
+                    chosenSpace = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+        }
+
+        public void switchTurn()
+        {
+            if (xTurn)
+            {
+                xO = "o";
+                xTurn = false;
+            }
+            else
+            {
+                xO = "x";
+                xTurn = true;
+            }
+        }
+
+        public void playGame()
+        {
+            while (turnsLeft > 0)
+            {
+                drawBoard();
+                pickSpace(xO);
+                switchTurn();
+                turnsLeft--;
+            }
+
+            drawBoard();
         }
     }
 
@@ -59,7 +104,7 @@ namespace cse210_01
         public static void Main(string[] args)
         {
         ticTacToe game = new ticTacToe();
-        game.drawBoard();
+        game.playGame();
         }
     }
 }
