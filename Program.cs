@@ -85,17 +85,49 @@ namespace cse210_01
             }
         }
 
+        public bool checkGameOver(string xOxO)
+        {
+            if (space[0] == xOxO && space[1] == xOxO && space[2] == xOxO ||
+                space[3] == xOxO && space[4] == xOxO && space[5] == xOxO ||
+                space[6] == xOxO && space[7] == xOxO && space[8] == xOxO ||
+                space[0] == xOxO && space[3] == xOxO && space[6] == xOxO ||
+                space[1] == xOxO && space[4] == xOxO && space[7] == xOxO ||
+                space[2] == xOxO && space[5] == xOxO && space[8] == xOxO ||
+                space[0] == xOxO && space[4] == xOxO && space[8] == xOxO ||
+                space[2] == xOxO && space[4] == xOxO && space[6] == xOxO)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void playGame()
         {
             while (turnsLeft > 0)
             {
                 drawBoard();
                 pickSpace(xO);
-                switchTurn();
-                turnsLeft--;
+                if (checkGameOver(xO))
+                {
+                    drawBoard();
+                    Console.WriteLine($"Game Over! {xO} wins!");
+                    break;
+                }
+                else
+                {
+                    switchTurn();
+                    turnsLeft--;
+                }
             }
 
-            drawBoard();
+            if (!checkGameOver(xO))
+            {
+                drawBoard();
+                Console.WriteLine("Game Over! Cat's Game!");
+            }
         }
     }
 
